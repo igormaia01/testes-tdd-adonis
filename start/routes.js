@@ -22,4 +22,7 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.resource('threads', 'ThreadController').only(['store', 'destroy']).middleware('auth')
+Route.resource('threads', 'ThreadController').only(['store', 'destroy', 'update']).middleware(new Map([
+  [['store', 'destroy', 'update'], ['auth']],
+  [['destroy', 'update'], ['modifyThreadPolicy']]
+]))
